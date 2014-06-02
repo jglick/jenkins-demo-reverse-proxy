@@ -19,3 +19,11 @@ If this is not true in your case, you must override the `HOST` environment varia
 ```
 docker run -p 80:80 -e HOST=<YOUR-HOST-IP-ADDRESS> jglick/jenkins-demo-reverse-proxy &
 ```
+
+If you want to test HTTPS proxying (for example to verify that insecure content is not getting served from a secure page), use
+
+```
+docker run -p 443:443 jglick/jenkins-demo-reverse-proxy &
+```
+
+and browse to https://localhost/jenkins/ to see the result. This uses a self-signed certificate, so you will need to tell your browser to accept it. Again make sure you have configured the Jenkins root URL explicitly.
