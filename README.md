@@ -7,18 +7,23 @@ Usage:
 ```
 cd jenkinsci/my-plugin
 mvn hpi:run &
-docker run -p 80:80 jglick/jenkins-demo-reverse-proxy &
+docker run --rm -p 80:80 jglick/jenkins-demo-reverse-proxy
 ```
 
 Then browse http://localhost/jenkins/ to see the result.
 (You ought to [configure Jenkins](http://localhost/jenkins/configure) and specify its URL explicitly; otherwise it guesses at its root URL from each HTTP request.)
 
-The assumption is that the host is visible from the container as `172.17.42.1`.
+The assumption is that the host is visible from the container as `172.17.0.1`.
 If this is not true in your case, you must override the `HOST` environment variable to specify it:
 
 ```
 docker run -p 80:80 -e HOST=<YOUR-HOST-IP-ADDRESS> jglick/jenkins-demo-reverse-proxy &
 ```
+
+Note that your Jenkins launch method must _not_ pass `--httpListenAddress=127.0.0.1` for this to work.
+Currently `mvn hpi:run` does so.
+For reasons unknown, `-e HOST=127.0.0.1 --network=host` does not suffice to work around this
+(even though `curl -I http://127.0.0.1:8080/jenkins/` works inside the container).
 
 If you want to test HTTPS proxying (for example to verify that insecure content is not getting served from a secure page), use
 
