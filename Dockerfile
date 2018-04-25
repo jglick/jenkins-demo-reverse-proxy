@@ -15,9 +15,6 @@ ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 EXPOSE 80 443
 
-# Seems to be the default value:
-ENV HOST 172.17.0.1
-
 # https://wiki.jenkins-ci.org/display/JENKINS/Running+Jenkins+behind+Apache
 RUN a2enmod proxy
 RUN a2enmod proxy_http
