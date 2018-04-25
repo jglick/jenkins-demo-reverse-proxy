@@ -21,6 +21,7 @@ RUN a2enmod proxy_http
 RUN a2enmod ssl
 RUN a2enmod headers
 RUN a2enmod alias
+RUN a2enmod rewrite
 RUN a2ensite default-ssl
 ADD generic.conf /etc/apache2/generic
 ADD site-default.conf /etc/apache2/sites-available/000-default.conf
