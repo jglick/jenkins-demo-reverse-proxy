@@ -9,8 +9,10 @@ RUN a2enmod proxy
 RUN a2enmod proxy_http
 RUN a2enmod ssl
 RUN a2enmod headers
+RUN a2enmod alias
 RUN a2ensite default-ssl
 ADD generic.conf /etc/apache2/generic
 ADD site-default.conf /etc/apache2/sites-available/default
 ADD site-ssl.conf /etc/apache2/sites-available/default-ssl
+ADD empty.json /var/www/empty.json
 CMD ["apache2ctl", "-X"]
